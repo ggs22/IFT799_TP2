@@ -74,6 +74,11 @@ numeric_cols = bank_data.select_dtypes(include=['float64', 'int64'])
 print_section(np.max(numeric_cols).to_string(), title="Max values")
 print_section(np.min(numeric_cols).to_string(), title="Min values")
 
+preprocessed_data = bank_data.copy()
+preprocessed_data.loc[:, 'age'] = bank_data['age'].apply(get_age_bracket)
+preprocessed_data.loc[:, 'income'] = bank_data['income'].apply(get_income_bracket)
 
+# sanity check
+print_section(preprocessed_data.nunique().to_string())
 
 input('Press any key to quit...')
